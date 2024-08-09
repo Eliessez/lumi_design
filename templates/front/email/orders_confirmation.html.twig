@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Confirmation de votre commande</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+				background-color: #f7f7f7;
+			}
+			.container {
+				width: 100%;
+				max-width: 600px;
+				margin: 0 auto;
+				padding: 20px;
+				background-color: #ffffff;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			}
+			.header {
+				text-align: center;
+				padding: 10px 0;
+			}
+			.header h1 {
+				margin: 0;
+				color: #333333;
+			}
+			.content {
+				padding: 20px 0;
+			}
+			.content h2 {
+				margin-top: 0;
+				color: #333333;
+			}
+			.content p {
+				margin: 10px 0;
+				color: #555555;
+			}
+			.order-details {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 20px 0;
+			}
+			.order-details th,
+			.order-details td {
+				border: 1px solid #dddddd;
+				padding: 8px;
+				text-align: left;
+			}
+			.order-details th {
+				background-color: #f2f2f2;
+			}
+			.total {
+				text-align: right;
+				font-weight: bold;
+				margin-top: 20px;
+			}
+			.footer {
+				text-align: center;
+				padding: 10px 0;
+				color: #777777;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1>Merci pour votre commande !</h1>
+			</div>
+			<div class="content">
+				<h2>Bonjour
+					{{ order.customer.email }},</h2>
+				<p>Nous avons bien reçu votre commande
+					<strong>#{{ order.orderNumber }}</strong>
+					passée le
+					<strong>{{ order.createdAt|date('d/m/Y H:i') }}</strong>.</p>
+				<p>Voici les détails de votre commande :</p>
+				<table class="order-details">
+					<thead>
+						<tr>
+							<th>Produit</th>
+							<th>Quantité</th>
+							<th>Prix</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in order.orderItems %}
+							<tr>
+								<td>{{ item.product.name }}</td>
+								<td>{{ item.quantity }}</td>
+								<td>{{ item.price|number_format(2, '.', ',') }}
+									€</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<p class="total">Total :
+					{{ order.total }}
+					€</p>
+				<p>
+					{# <a href="{{ orderUrl }}">Voir les détails de votre commande</a> #}
+				</p>
+				<p>Nous vous remercions pour votre achat et espérons vous revoir bientôt.</p>
+			</div>
+			<div class="footer">
+				<p>&copy;
+					{{ "now"|date("Y") }}
+					Votre Société. Tous droits réservés.</p>
+			</div>
+		</div>
+	</body>
+</html>

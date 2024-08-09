@@ -1,0 +1,46 @@
+{% extends "front/base.html.twig" %}
+
+{% block title %}
+	{{ parent()}}
+	Detail
+{% endblock %}
+
+
+{% block body %}
+	<main>
+		{% if product is not null %}
+			<div class="card" style="width: 18rem;">
+				<img src="{{product.picture}}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Nom :{{ product.name }}</h5>
+					<p class="card-text">Prix :
+						{{ product.price }}€</p>
+					<p class="card-text">Prix :
+						{{ product.category.name ?? 'N/A' }}</p>
+					<p class="badge bg-{{ product.stock > 0 ? 'success' : 'danger' }}">
+						{{ product.stock > 0 ? 'En stock' : 'Rupture de stock' }}
+					</p>
+					{% if product.stock > 0 %}
+						<a href={{ path('front_cart_add', { 'id': product.id } )}} class="btn btn-primary btn-lg">Ajouter au panier</a>
+					{% else %}
+						<button class="btn btn-secondary btn-lg" disabled>Indisponible</button>
+					{% endif %}
+				</div>
+
+			</div>
+		{% endif %}
+	</main>
+{% endblock %}
+
+{# <div class : >
+				<h1>{{ product.name }}</h1>
+				<p>{{ product.description }}</p>
+				<p>Prix :
+					{{ product.price }}</p>
+				<p>Categorie :
+					{{ product.category.name ?? 'N/A'  }}
+				</p>
+				<p>Categorie :
+					{{ product.category.id ?? 'N/A' }}
+				</p>
+			</div> #}

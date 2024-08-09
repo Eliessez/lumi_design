@@ -1,0 +1,43 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}
+	{{ parent()}}Panier!
+{% endblock %}
+
+{% block body %}
+	<main>
+		<div class="container">
+			<h1 class="mt-5">Confirmation de Commande</h1>
+			<div class="card mt-4">
+				<div class="card-body">
+					<h5 class="card-title">Récapitulatif de la commande</h5>
+					<div class="order-details">
+						<h6 class="card-subtitle mb-2 text-muted">Numéro de commande :
+							{{ order.orderNumber }}</h6>
+						{% for orderItem in order.orderItems %}
+							<p>Produit :
+								{{ orderItem.product.name }}</p>
+							<p>Prix :{{ orderItem.price }}</p>
+							<p>Quantité :
+								{{ orderItem.quantity }}</p>
+						{% endfor %}
+						<p>Total :
+							{{ order.total }}</p>
+					</div>
+					<hr>
+					<h6 class="card-subtitle mb-2 text-muted">Adresse de livraison</h6>
+					<address>
+						{{ app.user.email }}
+						123 Rue de Test<br>
+						Ville Test, Pays<br>
+						Code postal : 12345<br>
+					</address>
+					<hr>
+					<div class="text-center">
+						<a href={{ path('front_order_validated', { 'id': order.id} )}} class="btn btn-primary">Confirmer la commande et procéder au paiement</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

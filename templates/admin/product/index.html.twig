@@ -1,0 +1,38 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}
+	{{ parent() }}
+	Produits
+{% endblock %}
+
+{% block body %}
+	<a href={{path('admin_product_create')}} class="btn btn-warning">Ajouter un produit</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Nom du produit</th>
+				<th>Date de mise à jour</th>
+                <th>Details</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for product in products %}
+				<tr>
+					<th>{{ product.id}}</th>
+					<td>{{ product.name}}</td>
+					<td>{{ product.updatedAt|date('d/m/Y')}}</td>
+					<td>
+						<a href={{path('admin_product_show' , {'slug':product.slug} )}} class="btn btn-danger">Show</a>
+						{# <a href={{path('app_admin_product_update')}} class="btn btn-primary">Modifier</a> #}
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<div class="navigation mt-3">
+		{{ knp_pagination_render(products) }}
+	</div>
+{% endblock %}

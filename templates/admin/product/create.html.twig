@@ -1,0 +1,8 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+{{form_start(productForm)}}
+{{form_rest(productForm)}}
+<input type="submit" value="Ajouter">
+{{form_end(productForm)}}
+{% endblock %}
